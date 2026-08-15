@@ -1,18 +1,18 @@
-import css from "./App.module.css";
-import NoteList from "../NoteList/NoteList";
-import { fetchNotes } from "../../services/noteService";
-import Pagination from "../Pagination/Pagination";
-import SearchBox from "../SearchBox/SearchBox";
-import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
-import Modal from "../Modal/Modal";
-import NoteForm from "../NoteForm/NoteForm";
-import { useDebouncedCallback } from "use-debounce";
+import css from './App.module.css';
+import NoteList from '../NoteList/NoteList';
+import { fetchNotes } from '@/lib/api';
+import Pagination from '../Pagination/Pagination';
+import SearchBox from '../SearchBox/SearchBox';
+import { useQuery } from '@tanstack/react-query';
+import { useState } from 'react';
+import Modal from '../Modal/Modal';
+import NoteForm from '../NoteForm/NoteForm';
+import { useDebouncedCallback } from 'use-debounce';
 
 export function App() {
   const [page, setPage] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
 
   //пошук реалізовуємо
 
@@ -22,9 +22,9 @@ export function App() {
   }, 300);
 
   const { data, isLoading, error } = useQuery({
-    queryKey: ["notes", page, search],
+    queryKey: ['notes', page, search],
     queryFn: () => fetchNotes({ page, search, perPage: 12 }),
-    placeholderData: (previousValues) => previousValues,
+    placeholderData: previousValues => previousValues,
   });
   console.log(data);
 
